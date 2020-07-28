@@ -34,4 +34,13 @@ p {
   padding-left: 30px;
 }
 
+#name-input {
+  width: 97%;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+  border-bottom: 1px solid rgb(202, 202, 202)
+
+}
+
 
