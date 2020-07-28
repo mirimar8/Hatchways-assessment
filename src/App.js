@@ -28,23 +28,26 @@ function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <ul>
-        {students.map(student => (
+      <div className="main-container">
+        <ul>
+          {students.map(student => (
 
-          <li key={student.id}>
-            <img src={student.pic} alt="student"></img>
-            <h3>{student.firstName}  {student.lastName}</h3>
-            <p>Email: {student.email}</p>
-            <p>Company: {student.company}</p>
-            <p>Skill: {student.skill}</p>
-            <div>Average: {(student.grades.reduce((a, b) => parseInt(b) + a, 0))
-              / (student.grades.map((grade) => grade).length)}%
-            </div>
-
-          </li>
-        ))
-        }
-      </ul >
+            <li className="student-container" key={student.id}>
+              <img src={student.pic} alt="student"></img>
+              <div className="student-info">
+                <h1>{student.firstName}  {student.lastName}</h1>
+                <p>Email: {student.email}</p>
+                <p>Company: {student.company}</p>
+                <p>Skill: {student.skill}</p>
+                <p>Average: {(student.grades.reduce((a, b) => parseInt(b) + a, 0))
+                  / (student.grades.map((grade) => grade).length)}%
+                </p>
+              </div>
+            </li>
+          ))
+          }
+        </ul >
+      </div>
     );
 
   }
