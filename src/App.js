@@ -8,6 +8,7 @@ function App() {
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState('')
   const [filteredStudents, setFilteredStudents] = useState([])
+  const [open, setOpen] = useState([])
 
 
   useEffect(() => {
@@ -32,7 +33,17 @@ function App() {
           || s.lastName.toLowerCase().includes(search.toLowerCase());
       })
     )
-  }, [search, students])
+  }, [search, students]);
+
+  const toggleOpen = (id) => {
+    if (open.includes(id)) {
+      setOpen(open.filter(sid => sid !== id))
+    } else {
+      let newOpen = [...open]
+      newOpen.push(id)
+      setOpen(newOpen)
+    }
+  }
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -42,7 +53,7 @@ function App() {
     return (
       <div className="main-container">
 
-        <ul>
+        <ul className="list-container">
           <form >
             <input
               type="text"
@@ -62,7 +73,13 @@ function App() {
                 <p>Average: {(student.grades.reduce((a, b) => parseInt(b) + a, 0))
                   / (student.grades.map((grade) => grade).length)}%
                 </p>
+                {open.includes(student.id) ? (
+                  <ul className="grades-list">
+                    {student.grades.map((grade, index) => <li key={grade.id}>Test {index + 1}: {grade}%</li>)}
+                  </ul>) : null}
               </div>
+
+              <button className="expand-btn" onClick={() => toggleOpen(student.id)}>{open.includes(student.id) ? '-' : '+'}</button>
             </li>
           ))
           }
@@ -71,8 +88,6 @@ function App() {
     );
 
   }
-
-
 }
 
 export default App;
